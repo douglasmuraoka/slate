@@ -25,7 +25,7 @@ We have language bindings in Shell, Ruby, Python, and JavaScript! You can view c
 
 This example API documentation page was created with [Slate](https://github.com/lord/slate). Feel free to edit it and use it as a base for your own API's documentation.
 
-# Authentication
+# Saving Objects
 
 > To authorize, use this code:
 
@@ -48,16 +48,29 @@ curl "api_endpoint_here"
 ```
 
 ```javascript
-const kittn = require('kittn');
+const {{SELECTED_CLASS.class}} = Parse.Object.extend("{{SELECTED_CLASS.class}}");
+const {{SELECTED_CLASS.instance}} = new {{SELECTED_CLASS.class}}();
 
-let api = kittn.authorize('meowmeowmeow');
+gameScore.set("score", 1337);
+gameScore.set("playerName", "Sean Plott");
+gameScore.set("cheatMode", false);
+
+{{SELECTED_CLASS.instance}}.save().then(
+  {{SELECTED_CLASS.instance}} => {
+    // Execute any logic that should take place after the object is saved.
+    alert('New object created with objectId: ' + {{SELECTED_CLASS.instance}}.id);
+  },
+  error => {
+    // Execute any logic that should take place if the save fails.
+    // error is a Parse.Error with an error code and message.
+    alert('Failed to create new object, with error code: ' + error.message);
+  }
+);
 ```
 
 > Make sure to replace `meowmeowmeow` with your API key.
 
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
-
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
+Let’s say you want to save the {{SELECTED_CLASS.class}} described above to the Parse Cloud. The interface is similar to a Backbone.Model, including the save method:
 
 `Authorization: meowmeowmeow`
 

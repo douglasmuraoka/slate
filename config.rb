@@ -1,6 +1,9 @@
 # Unique header generation
 require './lib/unique_head.rb'
 
+# Setting environment
+config.env = ENV['env']
+
 # Markdown
 set :markdown_engine, :redcarpet
 set :markdown,
@@ -15,10 +18,10 @@ set :markdown,
     renderer: UniqueHeadCounter
 
 # Assets
-set :css_dir, 'css'
-set :js_dir, 'js'
-set :images_dir, 'img'
-set :fonts_dir, 'fonts'
+set :css_dir, 'apidocs/css'
+set :js_dir, 'apidocs/js'
+set :images_dir, 'apidocs/img'
+set :fonts_dir, 'apidocs/fonts'
 
 # Activate the syntax highlighter
 activate :syntax

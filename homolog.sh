@@ -7,4 +7,4 @@ then
 	ruby --version
 fi
 bundle install
-env=dev bundle exec middleman server
+NO_CONTRACTS=true env=homolog bundle exec middleman build
