@@ -15,9 +15,9 @@ set :markdown,
     renderer: UniqueHeadCounter
 
 # Assets
-set :css_dir, 'stylesheets'
-set :js_dir, 'javascripts'
-set :images_dir, 'images'
+set :css_dir, 'css'
+set :js_dir, 'js'
+set :images_dir, 'img'
 set :fonts_dir, 'fonts'
 
 # Activate the syntax highlighter
@@ -35,8 +35,8 @@ activate :autoprefixer do |config|
 end
 
 # Github pages require relative links
-activate :relative_assets
-set :relative_links, true
+# activate :relative_assets
+# set :relative_links, true
 
 # Build Configuration
 configure :build do
@@ -44,6 +44,7 @@ configure :build do
   # out the following two lines has been known to help
   activate :minify_css
   activate :minify_javascript
+  activate :minify_html
   # activate :relative_assets
   # activate :asset_hash
   # activate :gzip
