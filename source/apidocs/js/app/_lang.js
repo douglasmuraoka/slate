@@ -23,6 +23,7 @@ under the License.
   window.setupLanguages = setupLanguages;
   window.activateLanguage = activateLanguage;
   window.getLanguageFromQueryString = getLanguageFromQueryString;
+  window.initializeLanguages = initializeLanguages;
 
   function activateLanguage(language) {
     if (!language) return;
@@ -150,6 +151,14 @@ under the License.
       // no language selected, so use the default
       activateLanguage(languages[0]);
     }
+  }
+
+  function initializeLanguages() {
+    $("pre > code").map(function(index, el) {
+      var language = el.className;
+      var parent = el.parentNode;
+      parent.classList = "highlight " + language + " tab-" + language;
+    });
   }
 
   // if we click on a language tab, activate that language

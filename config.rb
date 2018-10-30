@@ -23,12 +23,6 @@ set :js_dir, 'apidocs/js'
 set :images_dir, 'apidocs/img'
 set :fonts_dir, 'apidocs/fonts'
 
-# Activate the syntax highlighter
-activate :syntax
-ready do
-  require './lib/multilang.rb'
-end
-
 activate :sprockets
 
 activate :autoprefixer do |config|
