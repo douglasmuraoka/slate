@@ -2,6 +2,7 @@
 @import 'normalize';
 @import 'variables';
 @import 'icon-font';
+@import 'b4a-styles';
 // @import 'rtl'; // uncomment to switch to RTL format
 
 /*
@@ -34,6 +35,7 @@ html, body {
   background-color: $main-bg;
   height: 100%;
   -webkit-text-size-adjust: none; /* Never autoresize text */
+  font-family: Raleway;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -58,7 +60,7 @@ html, body {
   left: 0;
   bottom: 0;
   width: $nav-width;
-  background-color: $nav-bg;
+  background-color: $b4a-nav-background;
   font-size: 13px;
   font-weight: bold;
 
@@ -82,23 +84,29 @@ html, body {
     position: relative;
 
     input {
-      background: $nav-bg;
+      font-family: Raleway;
+      background: $nav-text;
       border-width: 0 0 1px 0;
       border-color: $search-box-border-color;
-      padding: 6px 0 6px 20px;
+      padding: 6px 0 6px 30px;
       box-sizing: border-box;
       margin: $nav-v-padding $nav-padding;
       width: $nav-width - ($nav-padding*2);
       outline: none;
-      color: $nav-text;
-      border-radius: 0; /* ios has a default border radius */
+      color: $b4a-gray-text;
+      border-radius: 4px; /* ios has a default border radius */
+    }
+
+    ::placeholder {
+      opacity: 0.5;
     }
 
     &:before {
       position: absolute;
-      top: 17px;
-      left: $nav-padding;
-      color: $nav-text;
+      top: 16px;
+      left: 22px;
+      color: $b4a-blue;
+      font-size: 17px;
       @extend %icon-search;
     }
   }
@@ -149,29 +157,71 @@ html, body {
     transition-property: background;
     transition-timing-function: linear;
     transition-duration: 200ms;
+
+
   }
 
   // This is the currently selected ToC entry
   .toc-link.active {
-    background-color: $nav-active-bg;
+    background-color: $b4a-blue;
     color: $nav-active-text;
   }
 
+
   // this is parent links of the currently selected ToC entry
   .toc-link.active-parent {
-    background-color: $nav-active-parent-bg;
+    background-color: $b4a-blue;
     color: $nav-active-parent-text;
   }
 
   .toc-list-h2 {
     display: none;
-    background-color: $nav-subitem-bg;
+    background-color: $b4a-nav-background-dark;
     font-weight: 500;
+
+    .toc-link.active {
+      background-color: transparent;
+      font-weight: bold;
+      color: $nav-active-text;
+    }
+  }
+
+  .toc-list-h3 {
+    display: none;
+    font-weight: 300;
+
+    .toc-link.active {
+      background-color: transparent;
+      font-weight: bold;
+      color: $nav-active-text;
+      border-left: 4px solid $b4a-blue;
+      opacity: 1;
+    }
+  }
+
+  .toc-h1 {
+    font-size: 14px;
+    
+    &:hover {
+      color: $nav-text;
+    }
   }
 
   .toc-h2 {
     padding-left: $nav-padding + $nav-indent;
     font-size: 12px;
+
+    &:hover {
+      color: $nav-text;
+    }
+  }
+
+  .toc-h3 {
+    margin-left: $nav-padding + 2*$nav-indent;
+    font-size: 12px;
+    color: rgba(255, 255, 255, .75);
+    border-left: 2px solid $b4a-blue-opacity;
+    opacity: 0.75;
   }
 
   .toc-footer {
@@ -264,7 +314,7 @@ html, body {
   // half of the content always this background color.
   .dark-box {
     width: $examples-width;
-    background-color: $examples-bg;
+    background-color: $b4a-snippets-background;
     position: absolute;
     right: 0;
     top: 0;
@@ -274,12 +324,12 @@ html, body {
   .lang-selector {
     position: fixed;
     z-index: 50;
-    border-bottom: 5px solid $lang-select-active-bg;
+    border-bottom: 5px solid $b4a-snippets-background;
   }
 }
 
 .lang-selector {
-  background-color: $lang-select-bg;
+  background-color: #000;
   width: 100%;
   font-weight: bold;
   a {
@@ -290,6 +340,7 @@ html, body {
     padding: 0 10px;
     line-height: 30px;
     outline: 0;
+    opacity: 0.5;
 
     &:active, &:focus {
       background-color: $lang-select-pressed-bg;
@@ -297,8 +348,10 @@ html, body {
     }
 
     &.active {
-      background-color: $lang-select-active-bg;
+      background-color: $b4a-snippets-background;
       color: $lang-select-active-text;
+      opacity: 1;
+
     }
   }
 
@@ -320,6 +373,7 @@ html, body {
   // to place content above the dark box
   position: relative;
   z-index: 30;
+  color: $b4a-content-text-color;
 
   &:after {
     content: '';
@@ -336,6 +390,10 @@ html, body {
     @extend %left-col;
   }
 
+  &>h2, &>h3, &>h4, &>h5, &>h6, &>p, &>table, &>ul, &>ol, &>aside, &>dl {
+    color: $b4a-content-text-color;
+  }
+
   &>ul, &>ol {
     padding-left: $main-padding + 15px;
   }
@@ -345,6 +403,11 @@ html, body {
     clear:both;
   }
 
+  h1, h2 {
+    background-color: transparent!important;
+    margin-right: 0;
+  }
+
   h1 {
     @extend %header-font;
     font-size: 25px;
@@ -352,9 +415,10 @@ html, body {
     padding-bottom: 0.5em;
     margin-bottom: $h1-margin-bottom;
     margin-top: 2em;
-    border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
     background-color: #fdfdfd;
+    color: $b4a-blue;
+    height: 54px;
   }
 
   h1:first-child, div:first-child + h1 {
@@ -370,7 +434,6 @@ html, body {
     border-top: 1px solid #ccc;
     padding-top: 1.2em;
     padding-bottom: 1.2em;
-    background-image: linear-gradient(to bottom, rgba(#fff, 0.2), rgba(#fff, 0));
   }
 
   // h2s right after h1s should bump right up
@@ -391,6 +454,10 @@ html, body {
     font-size: 10px;
   }
 
+  h2, h3, h4, h5, h6 {
+    color: $b4a-subtopics-text
+  }
+
   hr {
     margin: 2em 0;
     border-top: 2px solid $examples-bg;
@@ -400,6 +467,7 @@ html, body {
   table {
     margin-bottom: 1em;
     overflow: auto;
+    color: $b4a-subtopics-text;
     th,td {
       text-align: left;
       vertical-align: top;
@@ -445,6 +513,10 @@ html, body {
     margin-top: 0;
   }
 
+  p {
+    color: $b4a-content-paragraph-color;
+  }
+
   img {
     max-width: 100%;
   }
@@ -463,19 +535,22 @@ html, body {
   }
 
   aside {
-    padding-top: 1em;
-    padding-bottom: 1em;
+    padding: 1em 28px;
     margin-top: 1.5em;
     margin-bottom: 1.5em;
-    background: $aside-notice-bg;
+    background: $b4a-alert-important;
     line-height: 1.6;
+    color: $b4a-alert-text-important;
 
     &.warning {
-      background-color: $aside-warning-bg;
+      background-color: $b4a-alert-warning;
+      color: $b4a-alert-text-warning;
+
     }
 
     &.success {
-      background-color: $aside-success-bg;
+      background-color: $b4a-alert-success;
+      color: $b4a-alert-text-success;
     }
   }
 
@@ -540,13 +615,26 @@ html, body {
     padding-top: 2em;
     padding-bottom: 2em;
     padding: 2em $main-padding;
+    background-color: $b4a-snippets-background;
+
   }
 
   blockquote {
+    background-color: $b4a-snippets-background;
     &>p {
-      background-color: $code-annotation-bg;
+      background-color: #000;
       padding: $code-annotation-padding 2em;
-      color: #eee;
+      color: $b4a-blockquote-text;
+      opacity: 0.9;
+      margin: 10px 28px;
+      border-radius: 4px;
+      font-family: Raleway;
+      font-size: 14px;
+      font-weight: 500;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: normal;
+      letter-spacing: normal;
     }
   }
 }

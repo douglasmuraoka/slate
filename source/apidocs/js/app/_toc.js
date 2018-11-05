@@ -87,6 +87,7 @@
           document.title = originalTitle;
         }
       }
+      loadSubToc()
     };
 
     var makeToc = function() {
@@ -112,10 +113,17 @@
       $(window).resize(debounce(recacheHeights, 200));
     };
 
+    // Function to show the active subtoc and hide others
+    var loadSubToc = function() {
+      $(".toc-h3").parent().parent().css( "display", "none" );
+      $(".toc-h3.active").parent().parent().css( "display", "block" );
+    }
+
     makeToc();
 
     window.recacheHeights = recacheHeights;
     window.refreshToc = refreshToc;
+    window.loadSubToc  = loadSubToc ;
   }
 
   window.loadToc = loadToc;
