@@ -1,9 +1,6 @@
 # Unique header generation
 require './lib/unique_head.rb'
 
-# Setting environment
-config.env = ENV['env']
-
 # Markdown
 set :markdown_engine, :redcarpet
 set :markdown,

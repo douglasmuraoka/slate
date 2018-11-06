@@ -7,4 +7,4 @@ then
 	ruby --version
 fi
 bundle install
-NO_CONTRACTS=true env=production bundle exec middleman build
+NO_CONTRACTS=true bundle exec middleman build
