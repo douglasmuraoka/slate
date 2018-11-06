@@ -30,6 +30,40 @@
     var windowHeight = 0;
     var originalTitle = document.title;
 
+    var fixCustomClassHeadings = function() {
+      // Selects all headings from the document
+      var headings = Array.from(document.querySelectorAll('h1[id], h2[id], h3[id]'));
+      var firstClassHeading = null;
+      var lastClassHeading = null;
+      for (var i=0; i<headings.length; i++) {
+        // Finds the index of the first custom class heading
+        if (!firstClassHeading && headings[i].id === 'classname-class') {
+          firstClassHeading = i;
+        }
+        // Finds the index of the last custom class heading
+        else if (firstClassHeading && headings[i].tagName === 'H1' && headings[i].id !== 'classname-class') {
+          lastClassHeading = i - 1;
+          break;
+        }
+      }
+      if (firstClassHeading && lastClassHeading) {
+        // Filters all non custom class headings
+        var classHeadings = headings.slice(firstClassHeading, lastClassHeading + 1);
+        var customClassName = null;
+        for (i=0; i<classHeadings.length; i++) {
+          // If the heading is a H1, updates the ID with `${className}-custom-class`
+          if (!customClassName || classHeadings[i].tagName === 'H1') {
+            customClassName = classHeadings[i].innerText.split(' Class')[0];
+            classHeadings[i].id = customClassName + '-custom-class';
+          }
+          // If the heading is from a subsection of the class, adds the prefix `${className}-` to the ID
+          else {
+            classHeadings[i].id = customClassName + '-' + classHeadings[i].id;
+          }
+        }
+      }
+    };
+
     var recacheHeights = function() {
       headerHeights = {};
       pageHeight = $(document).height();
@@ -91,6 +125,7 @@
     };
 
     var makeToc = function() {
+      fixCustomClassHeadings();
       recacheHeights();
       refreshToc();
 
