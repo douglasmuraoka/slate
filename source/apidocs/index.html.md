@@ -319,11 +319,24 @@ Please check the [Understanding Errors](#errors) section.
 
 The following fields are supported by this class' schema and can be used in the operations:
 
-Name | Type | Example
----- | ---- | -------
-{{#fields}}
-{{name}} | {{type}} | {{example.javascript}}
-{{/fields}}
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#fields}}
+      <tr>
+        <td>{{name}}</td>
+        <td>{{type}}</td>
+        <td>{{example.javascript}}</td>
+      </tr>
+    {{/fields}}
+  </tbody>
+</table>
 
 ## Creating Objects
 
