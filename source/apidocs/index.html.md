@@ -308,7 +308,7 @@ Please check the [Understanding Errors](#errors) section.
 ```json
 {
   {{#fields}}
-  "{{name}}": {{example}}{{^last}},{{/last}}
+  "{{name}}": {{example.javascript}}{{^last}},{{/last}}
   {{/fields}}
 }
 ```
@@ -322,7 +322,7 @@ The following fields are supported by this class' schema and can be used in the 
 Name | Type | Example
 ---- | ---- | -------
 {{#fields}}
-{{name}} | {{type}} | {{example}}
+{{name}} | {{type}} | {{example.javascript}}
 {{/fields}}
 
 ## Creating Objects
@@ -336,7 +336,7 @@ curl -X POST \
 -H "X-Parse-Application-Id: {{app.appId}}" \
 -H "X-Parse-REST-API-Key: {{app.restKey}}" \
 -H "Content-Type: application/json" \
--d '{{{#fields}}"{{name}}":{{example}}{{^last}},{{/last}}{{/fields}}}' \
+-d '{{{#fields}}"{{name}}":{{example.curl}}{{^last}},{{/last}}{{/fields}}}' \
 {{app.apiURL}}/classes/{{className}}
 ```
 
@@ -360,7 +360,7 @@ const {{className}} = Parse.Object.extend('{{className}}');
 const myNewObject = new {{className}}();
 
 {{#fields}}
-myNewObject.set('{{name}}', {{jsExample}});
+myNewObject.set('{{name}}', {{example.javascript}});
 {{/fields}}
 
 myNewObject.save().then(
