@@ -183,17 +183,6 @@ html, body {
       background-color: transparent;
       font-weight: bold;
       color: $nav-active-text;
-    }
-  }
-
-  .toc-list-h3 {
-    display: none;
-    font-weight: 300;
-
-    .toc-link.active {
-      background-color: transparent;
-      font-weight: bold;
-      color: $nav-active-text;
       border-left: 4px solid $b4a-blue;
       opacity: 1;
     }
@@ -208,20 +197,12 @@ html, body {
   }
 
   .toc-h2 {
-    padding-left: $nav-padding + $nav-indent;
+    margin-left: $nav-padding + $nav-indent;
     font-size: 12px;
 
     &:hover {
       color: $nav-text;
     }
-  }
-
-  .toc-h3 {
-    margin-left: $nav-padding + 2*$nav-indent;
-    font-size: 12px;
-    color: rgba(255, 255, 255, .75);
-    border-left: 2px solid $b4a-blue-opacity;
-    opacity: 0.75;
   }
 
   .toc-footer {
