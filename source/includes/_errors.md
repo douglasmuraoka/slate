@@ -1,4 +1,4 @@
-# Understanding Errors
+# Errors
 
 Code | Name | Meaning
 ---- | ---- | -------
