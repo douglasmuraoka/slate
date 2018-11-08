@@ -6,10 +6,10 @@ $(function() {
   loadToc($('#toc'), '.toc-link', '.toc-list-h2', 60);
   initializeLanguages();
   setupLanguages($('body').data('languages'));
-  $('.content').imagesLoaded( function() {
-    window.recacheHeights();
-    window.refreshToc();
-  });
+  // $('.content').imagesLoaded( function() {
+  //   window.recacheHeights();
+  //   window.refreshToc();
+  // });
 });
 
 window.onpopstate = function() {

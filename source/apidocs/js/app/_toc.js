@@ -32,7 +32,7 @@
 
     var fixCustomClassHeadings = function() {
       // Selects all headings from the document
-      var headings = Array.from(document.querySelectorAll('h1[id], h2[id], h3[id]'));
+      var headings = Array.from(document.querySelectorAll('h1[id], h2[id]'));
       var firstClassHeading = null;
       var lastClassHeading = null;
       for (var i=0; i<headings.length; i++) {
@@ -66,19 +66,19 @@
 
     var recacheHeights = function() {
       headerHeights = {};
-      pageHeight = $(document).height();
+      pageHeight = $('.content')[0].scrollHeight;
       windowHeight = $(window).height();
 
       $toc.find(tocLinkSelector).each(function() {
         var targetId = $(this).attr('href');
         if (targetId[0] === "#") {
-          headerHeights[targetId] = $(targetId).offset().top;
+          headerHeights[targetId] = document.getElementById(targetId.substr(1, targetId.length - 1)).offsetTop;
         }
       });
     };
 
     var refreshToc = function() {
-      var currentTop = $(document).scrollTop() + scrollOffset;
+      var currentTop = $('.content').scrollTop() + scrollOffset;
 
       if (currentTop + windowHeight >= pageHeight) {
         // at bottom of page, so just select last header by making currentTop very large
@@ -125,8 +125,6 @@
 
     var makeToc = function() {
       fixCustomClassHeadings();
-      recacheHeights();
-      refreshToc();
 
       $("#nav-button").click(function() {
         $(".toc-wrapper").toggleClass('open');
@@ -139,12 +137,18 @@
       // reload immediately after scrolling on toc click
       $toc.find(tocLinkSelector).click(function() {
         setTimeout(function() {
+          recacheHeights();
           refreshToc();
         }, 0);
       });
 
-      $(window).scroll(debounce(refreshToc, 200));
-      $(window).resize(debounce(recacheHeights, 200));
+      window.addEventListener('load', function() {
+        recacheHeights();
+        refreshToc();
+
+        $('.content').scroll(debounce(refreshToc, 200));
+        $(window).resize(debounce(recacheHeights, 200));
+      });
     };
 
     makeToc();
